@@ -1,35 +1,25 @@
-
 #include <stdio.h>
-#include <stdlib.h>
 
+#define MAX 10
 
-int main() {
-    int a = 4;
-    int b = 6;
-    char c = 'A'; //
-    float f = 7.5;
+int a[MAX];
+int rand_seed = 7748;
+// from K&R − produces an integer random number ∗ between 0 and 32767.
 
-    // Example 1: Arithmetic operators (+, -, *, /) precedence
-    int result1 = a + b * a; // Multiplication (*) has higher precedence than addition (+)
-    printf("Result1: %d\n", result1);
+int rand(void)
+{
+    rand_seed = rand_seed * 1103515245 + 12345;
+    return (unsigned int)(rand_seed / 65536) % 32768;
+}
 
-    // Example 2: Mixing data types (int and float)
-    // This is an example of an implicit typecast. int a will be typecast to a float to allow
-    // for the division (a/f)
-    float result2 = a / f; // Integer divided by float results in float
-    printf("Result2: %.2f\n", result2); // \
+int main(void)
+{
+    int i, t, x, y;
 
-    // Example 3: Using parentheses to change precedence
-    int result3 = (a + b) * a; // Parentheses changes the evaluation order
-    printf("Result3: %d\n", result3); \
-
-    // Example 4: Relational and equality operator precedence over logical operators
-    int result4 = result1 > result3 && f < 10; // && has lower precedence than > and <
-    printf("Result4: %d\n", result4); // \
-
-    // Example 5: Mixing char and int, and using cast to float
-    float result5 = (float)(c + b) / a; // Cast has higher precedence, then addition, then division
-    printf("Result5: %.2f\n", result5); \
-
-    return EXIT_SUCCESS;
+    for (i = 0; i < MAX; i++)
+    {
+        a[i] = rand();
+        printf("%d\n", a[i]);
+    }
+    return 0;
 }
